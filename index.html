@@ -152,6 +152,183 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-算法与Python数据结构学习笔记(1)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/01/%E7%AE%97%E6%B3%95%E4%B8%8EPython%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(1)/">算法与Python数据结构学习笔记(1)</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/01/%E7%AE%97%E6%B3%95%E4%B8%8EPython%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(1)/" class="archive-article-date">
+  	<time datetime="2020-04-01T08:14:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="算法的概念"><a href="#算法的概念" class="headerlink" title="算法的概念"></a>算法的概念</h2><p>算法是计算机处理信息的本质，因为计算机程序本质上是一个算法来告诉计算机确切的步骤来执行一个指定的任务。一般地，当算法在处理信息时，会从输入设备或数据的存储地址读取数据，把结果写入输出设备或某个存储地址供以后再调用。</p>
+<p><strong>算法是独立存在的一种解决问题的方法和思想。</strong></p>
+<p>对于算法而言，实现的语言并不重要，重要的是思想。</p>
+<h2 id="算法的五大特性"><a href="#算法的五大特性" class="headerlink" title="算法的五大特性"></a>算法的五大特性</h2><ul>
+<li>输入: 算法具有0个或多个输入</li>
+<li>输出: 算法至少有1个或多个输出</li>
+<li>有穷性: 算法在有限的步骤之后会自动结束而不会无限循环，并且每一个步骤可以在可接受的时间内完成</li>
+<li>确定性：算法中的每一步都有确定的含义，不会出现二义性</li>
+<li>可行性：算法的每一步都是可行的，也就是说每一步都能够执行有限的次数完成</li>
+</ul>
+<h3 id="例1-枚举法示例"><a href="#例1-枚举法示例" class="headerlink" title="例1 枚举法示例"></a>例1 枚举法示例</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">start_time = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意是三重循环</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">1001</span>):</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">1001</span>):</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">1001</span>):</span><br><span class="line">            <span class="keyword">if</span> a**<span class="number">2</span> + b**<span class="number">2</span> == c**<span class="number">2</span> <span class="keyword">and</span> a+b+c == <span class="number">1000</span>:</span><br><span class="line">                print(<span class="string">"a, b, c: %d, %d, %d"</span> % (a, b, c))</span><br><span class="line"></span><br><span class="line">end_time = time.time()</span><br><span class="line">print(<span class="string">"elapsed: %f"</span> % (end_time - start_time))</span><br><span class="line">print(<span class="string">"complete!"</span>)</span><br></pre></td></tr></table></figure>
+<p>运行时间是213秒</p>
+<hr>
+<p>进行一些改进</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">start_time = time.time()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意是两重循环</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">1001</span>):</span><br><span class="line">    <span class="keyword">for</span> b <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">1001</span>-a):</span><br><span class="line">        c = <span class="number">1000</span> - a - b</span><br><span class="line">        <span class="keyword">if</span> a**<span class="number">2</span> + b**<span class="number">2</span> == c**<span class="number">2</span>:</span><br><span class="line">            print(<span class="string">"a, b, c: %d, %d, %d"</span> % (a, b, c))</span><br><span class="line"></span><br><span class="line">end_time = time.time()</span><br><span class="line">print(<span class="string">"elapsed: %f"</span> % (end_time - start_time))</span><br><span class="line">print(<span class="string">"complete!"</span>)</span><br></pre></td></tr></table></figure>
+<p>运行时间是0.4秒</p>
+<h2 id="关于算法效率的衡量"><a href="#关于算法效率的衡量" class="headerlink" title="关于算法效率的衡量"></a>关于算法效率的衡量</h2><h3 id="时间复杂度与“大O记法”"><a href="#时间复杂度与“大O记法”" class="headerlink" title="时间复杂度与“大O记法”"></a>时间复杂度与“大O记法”</h3><p>我们假定计算机执行算法每一个基本操作的时间是固定的一个时间单位，那么有多少个基本操作就代表会花费多少时间单位。算然对于不同的机器环境而言，确切的单位时间是不同的，但是对于算法进行多少个基本操作（即花费多少时间单位）在规模数量级上却是相同的，由此可以忽略机器环境的影响而客观的反应算法的时间效率。</p>
+<p>对于算法的时间效率，我们可以用“大O记法”来表示。</p>
+<p><strong>“大O记法”：对于单调的整数函数f，如果存在一个整数函数g和实常数c&gt;0，使得对于充分大的n总有f(n)&lt;=c*g(n)，就说函数g是f的一个渐近函数（忽略常数），记为f(n)=O(g(n))。也就是说，在趋向无穷的极限意义下，函数f的增长速度受到函数g的约束，亦即函数f与函数g的特征相似。</strong></p>
+<p><strong>时间复杂度：假设存在函数g，使得算法A处理规模为n的问题示例所用时间为T(n)=O(g(n))，则称O(g(n))为算法A的渐近时间复杂度，简称时间复杂度，记为T(n)</strong></p>
+<p>对于算法进行特别具体的细致分析虽然很好，但在实践中的实际价值有限。对于算法的时间性质和空间性质，最重要的是其数量级和趋势，这些是分析算法效率的主要部分。而计量算法基本操作数量的规模函数中那些常量因子可以忽略不计。例如，可以认为3n2和100n2属于同一个量级，如果两个算法处理同样规模实例的代价分别为这两个函数，就认为它们的效率“差不多”，都为n2级。</p>
+<h3 id="最坏时间复杂度"><a href="#最坏时间复杂度" class="headerlink" title="最坏时间复杂度"></a>最坏时间复杂度</h3><p>分析算法时，存在几种可能的考虑：</p>
+<ul>
+<li>算法完成工作最少需要多少基本操作，即最优时间复杂度</li>
+<li>算法完成工作最多需要多少基本操作，即最坏时间复杂度</li>
+<li>算法完成工作平均需要多少基本操作，即平均时间复杂度</li>
+</ul>
+<p>对于最优时间复杂度，其价值不大，因为它没有提供什么有用信息，其反映的只是最乐观最理想的情况，没有参考价值。</p>
+<p>而最坏时间复杂度，提供了一种保证，表明算法在此种程度的基本操作中一定能完成工作。</p>
+<p>对于平均时间复杂度，是对算法的一个全面评价，因此它完整全面的反映了这个算法的性质。但另一方面，这种衡量并没有保证，不是每个计算都能在这个基本操作内完成。而且，对于平均情况的计算，也会因为应用算法的实例分布可能并不均匀而难以计算。</p>
+<p><strong>因此，我们主要关注算法的最坏情况，亦即最坏时间复杂度。</strong></p>
+<h3 id="时间复杂度的几条基本计算规则"><a href="#时间复杂度的几条基本计算规则" class="headerlink" title="时间复杂度的几条基本计算规则"></a>时间复杂度的几条基本计算规则</h3><ol>
+<li>基本操作，即只有常数项，认为其时间复杂度为O(1)</li>
+<li>顺序结构，时间复杂度按加法进行计算</li>
+<li>循环结构，时间复杂度按乘法进行计算</li>
+<li>分支结构，时间复杂度取最大值</li>
+<li>判断一个算法的效率时，往往只需要关注操作数量的最高次项，其它次要项和常数项可以忽略</li>
+<li>在没有特殊说明时，我们所分析的算法的时间复杂度都是指最坏时间复杂度</li>
+</ol>
+<h2 id="常见时间复杂度"><a href="#常见时间复杂度" class="headerlink" title="常见时间复杂度"></a>常见时间复杂度</h2><table>
+<thead>
+<tr>
+<th align="center">执行次数函数举例</th>
+<th align="center">阶</th>
+<th align="center">非正式术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">12</td>
+<td align="center">O(1)</td>
+<td align="center">常数阶</td>
+</tr>
+<tr>
+<td align="center">2n+3</td>
+<td align="center">O(n)</td>
+<td align="center">线性阶</td>
+</tr>
+<tr>
+<td align="center">3n<sup>2</sup>+2n+1</td>
+<td align="center">O(n<sup>2</sup>)</td>
+<td align="center">平方阶</td>
+</tr>
+<tr>
+<td align="center">5log<sub>2</sub>n+20</td>
+<td align="center">O(logn)</td>
+<td align="center">对数阶</td>
+</tr>
+<tr>
+<td align="center">2n+3nlog<sub>2</sub>n+19</td>
+<td align="center">O(nlogn)</td>
+<td align="center">nlogn阶</td>
+</tr>
+<tr>
+<td align="center">6n<sup>3</sup>+2n<sup>2</sup>+3n+4</td>
+<td align="center">O(n<sup>3</sup>)</td>
+<td align="center">立方阶</td>
+</tr>
+<tr>
+<td align="center">2<sup>n</sup></td>
+<td align="center">O(2<sup>n</sup>)</td>
+<td align="center">指数阶</td>
+</tr>
+<tr>
+<td align="center"><strong>注意，经常将log<sub>2</sub>n简写成logn</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="常见时间复杂度之间的关系"><a href="#常见时间复杂度之间的关系" class="headerlink" title="常见时间复杂度之间的关系"></a>常见时间复杂度之间的关系</h2><h3 id="算法效率关系"><a href="#算法效率关系" class="headerlink" title="算法效率关系"></a>算法效率关系</h3><p>所消耗的时间从小到大</p>
+<p><strong>O(1) &lt; O(logn) &lt; O(n) &lt; O(nlogn) &lt; O(n<sup>2</sup>) &lt; O(n<sup>3</sup>) &lt; O(2<sup>n</sup>) &lt; O(n!) &lt; O(n<sup>n</sup>)</strong></p>
+<hr>
+<h2 id="Python内置类型性能分析"><a href="#Python内置类型性能分析" class="headerlink" title="Python内置类型性能分析"></a>Python内置类型性能分析</h2><h3 id="timeit模块"><a href="#timeit模块" class="headerlink" title="timeit模块"></a>timeit模块</h3><p>timeit模块可以用来测试一小段Python代码的执行速度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">timeit</span>.<span class="title">Timer</span><span class="params">(stmt=<span class="string">'pass'</span>, setup=<span class="string">'pass'</span>, timer=&lt;timer function&gt;)</span></span></span><br></pre></td></tr></table></figure>
+<p>Timer是测量小段代码执行速度的类。</p>
+<p>stmt参数是要测试的代码语句（statment）；</p>
+<p>setup参数是运行代码时需要的设置；</p>
+<p>timer参数是一个定时器函数，与平台有关。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timeit.Timer.timeit(number=<span class="number">1000000</span>)</span><br></pre></td></tr></table></figure>
+<p>Timer类中测试语句执行速度的对象方法。number参数是测试代码时的测试次数，默认为1000000次。方法返回执行代码的平均耗时，一个float类型的秒数。</p>
+<p>list的操作测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test1</span><span class="params">()</span>:</span></span><br><span class="line">   l = []</span><br><span class="line">   <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">      l = l + [i]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test2</span><span class="params">()</span>:</span></span><br><span class="line">   l = []</span><br><span class="line">   <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">      l.append(i)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test3</span><span class="params">()</span>:</span></span><br><span class="line">   l = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>)]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test4</span><span class="params">()</span>:</span></span><br><span class="line">   l = list(range(<span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> timeit <span class="keyword">import</span> Timer</span><br><span class="line"></span><br><span class="line">t1 = Timer(<span class="string">"test1()"</span>, <span class="string">"from __main__ import test1"</span>)</span><br><span class="line">print(<span class="string">"concat "</span>,t1.timeit(number=<span class="number">1000</span>), <span class="string">"seconds"</span>)</span><br><span class="line">t2 = Timer(<span class="string">"test2()"</span>, <span class="string">"from __main__ import test2"</span>)</span><br><span class="line">print(<span class="string">"append "</span>,t2.timeit(number=<span class="number">1000</span>), <span class="string">"seconds"</span>)</span><br><span class="line">t3 = Timer(<span class="string">"test3()"</span>, <span class="string">"from __main__ import test3"</span>)</span><br><span class="line">print(<span class="string">"comprehension "</span>,t3.timeit(number=<span class="number">1000</span>), <span class="string">"seconds"</span>)</span><br><span class="line">t4 = Timer(<span class="string">"test4()"</span>, <span class="string">"from __main__ import test4"</span>)</span><br><span class="line">print(<span class="string">"list range "</span>,t4.timeit(number=<span class="number">1000</span>), <span class="string">"seconds"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ('concat ', 1.7890608310699463, 'seconds')</span></span><br><span class="line"><span class="comment"># ('append ', 0.13796091079711914, 'seconds')</span></span><br><span class="line"><span class="comment"># ('comprehension ', 0.05671119689941406, 'seconds')</span></span><br><span class="line"><span class="comment"># ('list range ', 0.014147043228149414, 'seconds')</span></span><br></pre></td></tr></table></figure>
+<p>pop操作测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">x = range(<span class="number">2000000</span>)</span><br><span class="line">pop_zero = Timer(<span class="string">"x.pop(0)"</span>,<span class="string">"from __main__ import x"</span>)</span><br><span class="line">print(<span class="string">"pop_zero "</span>,pop_zero.timeit(number=<span class="number">1000</span>), <span class="string">"seconds"</span>)</span><br><span class="line">x = range(<span class="number">2000000</span>)</span><br><span class="line">pop_end = Timer(<span class="string">"x.pop()"</span>,<span class="string">"from __main__ import x"</span>)</span><br><span class="line">print(<span class="string">"pop_end "</span>,pop_end.timeit(number=<span class="number">1000</span>), <span class="string">"seconds"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ('pop_zero ', 1.9101738929748535, 'seconds')</span></span><br><span class="line"><span class="comment"># ('pop_end ', 0.00023603439331054688, 'seconds')</span></span><br></pre></td></tr></table></figure>
+<p>测试pop操作：从结果可以看出，pop最后一个元素的效率远远高于pop第一个元素</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/01/%E7%AE%97%E6%B3%95%E4%B8%8EPython%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(1)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -329,6 +506,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
